@@ -1,31 +1,23 @@
-
+require('dotenv').config();
 const mongoose = require("mongoose");
-
 const express = require('express');
-const cors = require('cors'); // Importing CORS once
-
-
- // Using CORS middleware
-
-
+const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const port = 8000;
 
-
 app.use(express.json());
 app.use(cors());
-// 💡 Serve frontend files from 'public' folder
-const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
-// TTpiYGJsTE75NMKd
-mongoose.connect('mongodb+srv://subash56:TTpiYGJsTE75NMKd@cluster56.hphvs.mongodb.net/todo?retryWrites=true&w=majority&appName=Cluster56').then(()=>{
-    console.log("DB connected .......");
-}).catch((err)=>{
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+    console.log("DB connected ..atlas.....");
+}).catch((err) => {
     console.log(err);
-    
 });
+
+
 
 const todoschema = new mongoose.Schema({
     
